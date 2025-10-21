@@ -2,7 +2,7 @@
 # py -m venv venv
 # venv\Scripts\activate  # Aktifkan env (di Windows)
 # pip install yfinance pandas
-# py yfinance.py
+# python saham-alert.py --code PSAB.JK --mode buy --price 620.00 --telegram-token 7677796645:AAEYLZhLLB7lhXFf2Jq7WVdSWi64FxRy4Y4 --chat-id 133717472
 import yfinance as yf
 import pandas as pd
 import time
@@ -12,20 +12,27 @@ from yfinance.exceptions import YFRateLimitError
 import argparse
 
 # Parse argumen CLI
-parser = argparse.ArgumentParser(description="Saham Alert: Monitor PSAB.JK dengan Telegram Alert")
+parser = argparse.ArgumentParser(description="Saham Alert: Monitor saham IDX dengan Telegram Alert")
+parser.add_argument("--code", default="PSAB.JK", help="Kode saham (default: PSAB.JK)")
 parser.add_argument("--mode", choices=["sell", "buy"], default="sell", help="Mode alert: sell (harga tinggi) atau buy (harga rendah)")
 parser.add_argument("--price", type=float, default=620.00, help="Harga threshold untuk alert (default 620 untuk sell, 210 untuk buy)")
 parser.add_argument("--telegram-token", required=True, help="Telegram bot token (wajib)")
 parser.add_argument("--chat-id", required=True, help="Telegram chat ID (wajib)")
+parser.add_argument("--interval", type=int, default=300, help="Interval update dalam detik (default: 300/5 menit, min 60)")
+
 args = parser.parse_args()
 
+# Validasi interval
+if args.interval < 60:
+    parser.error("--interval harus minimal 60 detik untuk hindari rate limit.")
+    
 # Konfigurasi
-symbol = "PSAB.JK"
+symbol = args.code.upper()
 alert_price = args.price
 telegram_token = args.telegram_token
 chat_id = args.chat_id
 alert_sent = False
-update_interval = 300  # 5 menit
+update_interval = args.interval
 
 # Fungsi kirim Telegram
 def send_telegram_alert(message):

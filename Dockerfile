@@ -11,4 +11,4 @@ COPY saham-alert.py .
 
 ENV PYTHONUNBUFFERED=1
 
-CMD ["python", "saham-alert.py", "--mode", "buy", "--price", "210.00"]
+CMD ["python", "saham-alert.py"]
