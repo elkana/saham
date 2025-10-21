@@ -6,11 +6,11 @@
 4. saham.py -> source awal utk test alert seperti sell
 
 ```
-docker build -t scalping-alert .
+docker build -t stock-alert .
 
-docker run -d --name scalping-sell saham-alert python saham-alert.py --code PSAB.JK --mode sell --price 620.00 --telegram-token 7677796645:AAEYLZhLLB7lhXFf2Jq7WVdSWi64FxRy4Y4 --chat-id 133717472
+docker run -d --name scalping-sell stock-alert python saham-alert.py --code PSAB.JK --mode sell --price 620.00 --telegram-token 7677796645:AAEYLZhLLB7lhXFf2Jq7WVdSWi64FxRy4Y4 --chat-id 133717472
 
-docker run -d --name scalping-buy saham-alert python saham-alert.py --code PSAB.JK --mode buy --price 600.00 --telegram-token 7677796645:AAEYLZhLLB7lhXFf2Jq7WVdSWi64FxRy4Y4 --chat-id 133717472
+docker run -d --name scalping-buy stock-alert python saham-alert.py --code PSAB.JK --mode buy --price 600.00 --telegram-token 7677796645:AAEYLZhLLB7lhXFf2Jq7WVdSWi64FxRy4Y4 --chat-id 133717472
   
 ```
 
