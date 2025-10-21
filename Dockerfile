@@ -8,5 +8,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY saham-alert.py .
 
-CMD ["python", "saham-alert.py"]
+CMD ["python", "-u", "saham-alert.py"]
 
